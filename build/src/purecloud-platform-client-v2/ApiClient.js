@@ -37,7 +37,7 @@ class ApiClient {
 
 		/**
 		 * Enumeration of collection format separator strategies.
-		 * @enum {String} 
+		 * @enum {String}
 		 * @readonly
 		 */
 		this.CollectionFormatEnum = {
@@ -203,7 +203,7 @@ class ApiClient {
 		// Load current auth data
 		const tempState = this.authData.state;
 		this.authData = localStorage.getItem(`${this.settingsPrefix}_auth_data`);
-		if (!this.authData) 
+		if (!this.authData)
 			this.authData = {};
 		else
 			this.authData = JSON.parse(this.authData);
@@ -240,7 +240,7 @@ class ApiClient {
 	 * @description Initiates the implicit grant login flow. Will attempt to load the token from local storage, if enabled.
 	 * @param {string} clientId - The client ID of an OAuth Implicit Grant client
 	 * @param {string} redirectUri - The redirect URI of the OAuth Implicit Grant client
-	 * @param {object} opts - (optional) Additional options 
+	 * @param {object} opts - (optional) Additional options
 	 * @param {string} opts.state - (optional) An arbitrary string to be passed back with the login response. Used for client apps to associate login responses with a request.
 	 */
 	loginImplicitGrant(clientId, redirectUri, opts) {
@@ -336,7 +336,7 @@ class ApiClient {
 			}
 
 			// Test token
-			this.callApi('/api/v2/authorization/permissions', 'GET', 
+			this.callApi('/api/v2/authorization/permissions', 'GET',
 				null, null, null, null, null, ['PureCloud OAuth'], ['application/json'], ['application/json'])
 				.then(() => {
 					resolve();
@@ -369,9 +369,9 @@ class ApiClient {
 			let opts = {};
 
 			if (hash.state) {
-				/* Auth does some interesting things with encoding. It encodes the data twice, except 
-				 * for spaces, then replaces all spaces with a plus sign. This process must be done 
-				 * in reverse order to properly extract the state data. 
+				/* Auth does some interesting things with encoding. It encodes the data twice, except
+				 * for spaces, then replaces all spaces with a plus sign. This process must be done
+				 * in reverse order to properly extract the state data.
 				 */
 				opts.state = decodeURIComponent(decodeURIComponent(hash.state.replace(/\+/g, '%20')));
 			}
@@ -385,22 +385,6 @@ class ApiClient {
 
 			// Remove hash from URL
 			// Credit: https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-			var scrollV, scrollH, loc = window.location;
-			if ('replaceState' in history) {
-				history.replaceState('', document.title, loc.pathname + loc.search);
-			} else {
-				// Prevent scrolling by storing the page's current scroll offset
-				scrollV = document.body.scrollTop;
-				scrollH = document.body.scrollLeft;
-
-				// Remove hash
-				loc.hash = '';
-
-				// Restore the scroll offset, should be flicker free
-				document.body.scrollTop = scrollV;
-				document.body.scrollLeft = scrollH;
-			}
-
 			this._saveSettings(opts);
 		}
 	}
@@ -530,7 +514,7 @@ class ApiClient {
 	/**
 	 * Checks whether the given parameter value represents file-like content.
 	 * @param param The parameter to check.
-	 * @returns {Boolean} <code>true</code> if <code>param</code> represents a file. 
+	 * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
 	 */
 	isFileParam(param) {
 		// fs.ReadStream in Node.js (but not in runtime like browserify)
